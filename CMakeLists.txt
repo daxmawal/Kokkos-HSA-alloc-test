@@ -16,3 +16,33 @@ add_subdirectory(kokkos)
 
 add_executable(kokkos_hsa_alloc_test kokkos_hsa_alloc_test.cpp)
 target_link_libraries(kokkos_hsa_alloc_test PRIVATE Kokkos::kokkos)
+
+option(ENABLE_HSA_TEST "Build HSA-only allocation test" ON)
+if(ENABLE_HSA_TEST)
+  set(HSA_ROOT
+      ""
+      CACHE PATH "Root of ROCm/HSA installation")
+
+  find_path(
+    HSA_INCLUDE_DIR
+    NAMES hsa/hsa.h
+    HINTS ${HSA_ROOT}
+    PATH_SUFFIXES include)
+
+  find_library(
+    HSA_RUNTIME_LIBRARY
+    NAMES hsa-runtime64
+    HINTS ${HSA_ROOT}
+    PATH_SUFFIXES lib lib64)
+
+  if(NOT HSA_INCLUDE_DIR OR NOT HSA_RUNTIME_LIBRARY)
+    message(
+      FATAL_ERROR
+        "HSA runtime not found. Set HSA_ROOT or disable with -DENABLE_HSA_TEST=OFF."
+    )
+  endif()
+
+  add_executable(hsa_alloc_test hsa_alloc_test.cpp)
+  target_include_directories(hsa_alloc_test PRIVATE ${HSA_INCLUDE_DIR})
+  target_link_libraries(hsa_alloc_test PRIVATE ${HSA_RUNTIME_LIBRARY})
+endif()
