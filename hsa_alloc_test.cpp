@@ -9,7 +9,7 @@
 namespace {
 
 void check_hsa(hsa_status_t status, const char *context) {
-  if (status == HSA_STATUS_SUCCESS) {
+  if (status == HSA_STATUS_SUCCESS || status == HSA_STATUS_INFO_BREAK) {
     return;
   }
   const char *msg = nullptr;
