@@ -1,5 +1,6 @@
 #include <Kokkos_Core.hpp>
 
+#include <cstdio>
 #include <cstdlib>
 #include <vector>
 
@@ -31,6 +32,8 @@ int main(int argc, char **argv) {
     for (int i = 0; i < allocs_per_step; ++i) {
       buffers.emplace_back(
           Kokkos::ViewAllocateWithoutInitializing("step_alloc"), bytes);
+      std::printf("step %d alloc %d: %zu bytes\n", step, i,
+                  static_cast<size_t>(buffers.back().size()));
     }
 
     buffers.clear();
