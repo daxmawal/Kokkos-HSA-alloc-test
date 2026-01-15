@@ -1,7 +1,7 @@
 # Kokkos HSA Alloc Test
 
 Minimal Kokkos test that allocates a number of buffers each time step using
-Kokkos memory spaces (no direct HSA calls).
+Kokkos memory spaces.
 
 ## Clone with submodule
 
