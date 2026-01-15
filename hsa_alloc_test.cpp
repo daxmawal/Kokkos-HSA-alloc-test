@@ -84,9 +84,15 @@ hsa_status_t find_pool_cb(hsa_amd_memory_pool_t pool, void *data) {
   if (status != HSA_STATUS_SUCCESS) {
     return status;
   }
+#ifdef HSA_AMD_MEMORY_POOL_GLOBAL_FLAG_KERNARG
   if (flags & HSA_AMD_MEMORY_POOL_GLOBAL_FLAG_KERNARG) {
     return HSA_STATUS_SUCCESS;
   }
+#else
+  if (flags & HSA_AMD_MEMORY_POOL_GLOBAL_FLAG_KERNARG_INIT) {
+    return HSA_STATUS_SUCCESS;
+  }
+#endif
 
   selector->pool = pool;
   selector->found = true;
