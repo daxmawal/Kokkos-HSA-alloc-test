@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 
   int steps = 10;
   int allocs_per_step = 10;
-  size_t bytes = 1 << 20;
+  size_t bytes = 64 << 20;
 
   if (argc > 1) {
     steps = std::atoi(argv[1]);
