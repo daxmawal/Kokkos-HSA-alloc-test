@@ -76,8 +76,10 @@ const char *segment_name(hsa_amd_segment_t segment) {
       return "GROUP";
     case HSA_AMD_SEGMENT_PRIVATE:
       return "PRIVATE";
+#ifdef HSA_AMD_SEGMENT_KERNARG
     case HSA_AMD_SEGMENT_KERNARG:
       return "KERNARG";
+#endif
     default:
       return "UNKNOWN";
   }
