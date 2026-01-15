@@ -153,12 +153,14 @@ int main(int argc, char **argv) {
     std::vector<void *> ptrs;
     ptrs.reserve(static_cast<size_t>(allocs_per_step));
 
+    size_t alloc_bytes = bytes;
     for (int i = 0; i < allocs_per_step; ++i) {
       void *ptr = nullptr;
-      check_hsa(hsa_amd_memory_pool_allocate(pool, bytes, 0, &ptr),
+      check_hsa(hsa_amd_memory_pool_allocate(pool, alloc_bytes, 0, &ptr),
                 "hsa_amd_memory_pool_allocate");
       ptrs.push_back(ptr);
-      std::printf("step %d alloc %d: %zu bytes\n", step, i, bytes);
+      std::printf("step %d alloc %d: %zu bytes\n", step, i, alloc_bytes);
+      alloc_bytes = static_cast<size_t>(alloc_bytes * 1.2);
     }
 
     for (void *ptr : ptrs) {

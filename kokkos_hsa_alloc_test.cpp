@@ -29,11 +29,13 @@ int main(int argc, char **argv) {
     std::vector<Buffer> buffers;
     buffers.reserve(static_cast<size_t>(allocs_per_step));
 
+    size_t alloc_bytes = bytes;
     for (int i = 0; i < allocs_per_step; ++i) {
       buffers.emplace_back(
-          Kokkos::ViewAllocateWithoutInitializing("step_alloc"), bytes);
+          Kokkos::ViewAllocateWithoutInitializing("step_alloc"), alloc_bytes);
       std::printf("step %d alloc %d: %zu bytes\n", step, i,
                   static_cast<size_t>(buffers.back().size()));
+      alloc_bytes = static_cast<size_t>(alloc_bytes * 1.2);
     }
 
     buffers.clear();
