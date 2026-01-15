@@ -36,6 +36,18 @@ CC=hipcc CXX=hipcc cmake .. \
 cmake --build .
 ```
 
+## Build for MI250
+
+Use `GFX90A` for MI250 / MI250X:
+
+```bash
+CC=hipcc CXX=hipcc cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DKokkos_ENABLE_HIP=ON \
+  -DKokkos_ARCH_AMD_GFX90A=ON \
+  -DKokkos_ENABLE_IMPL_HIP_MALLOC_ASYNC=ON
+```
+
 ## Run
 
 ```bash
