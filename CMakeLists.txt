@@ -22,6 +22,25 @@ target_link_libraries(kokkos_mat_add PRIVATE Kokkos::kokkos)
 
 add_executable(hip_mat_add hip_mat_add.cpp)
 
+set(HIP_ARCH
+    ""
+    CACHE STRING
+          "HIP offload architecture for hip_mat_add (e.g., gfx90a, gfx942)")
+set(_HIP_OFFLOAD_ARCH "")
+if(HIP_ARCH)
+  set(_HIP_OFFLOAD_ARCH "${HIP_ARCH}")
+elseif(Kokkos_ARCH_AMD_GFX942_APU OR Kokkos_ARCH_AMD_GFX942)
+  set(_HIP_OFFLOAD_ARCH "gfx942")
+elseif(Kokkos_ARCH_AMD_GFX90A)
+  set(_HIP_OFFLOAD_ARCH "gfx90a")
+endif()
+
+if(_HIP_OFFLOAD_ARCH)
+  target_compile_options(hip_mat_add
+                         PRIVATE "--offload-arch=${_HIP_OFFLOAD_ARCH}")
+  target_link_options(hip_mat_add PRIVATE "--offload-arch=${_HIP_OFFLOAD_ARCH}")
+endif()
+
 option(ENABLE_HSA_TEST "Build HSA-only allocation test" ON)
 if(ENABLE_HSA_TEST)
   set(HSA_ROOT

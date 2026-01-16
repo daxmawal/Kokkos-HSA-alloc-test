@@ -31,6 +31,7 @@ CC=hipcc CXX=hipcc cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
   -DKokkos_ENABLE_HIP=ON \
   -DKokkos_ARCH_AMD_GFX942_APU=ON \
+  -DHIP_ARCH=gfx942 \
   -DKokkos_ENABLE_IMPL_HIP_MALLOC_ASYNC=ON
 
 cmake --build .
@@ -45,6 +46,7 @@ CC=hipcc CXX=hipcc cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
   -DKokkos_ENABLE_HIP=ON \
   -DKokkos_ARCH_AMD_GFX90A=ON \
+  -DHIP_ARCH=gfx90a \
   -DKokkos_ENABLE_IMPL_HIP_MALLOC_ASYNC=ON
 ```
 
@@ -71,7 +73,8 @@ Kokkos:
 ./kokkos_mat_add [steps] [start_dim]
 ```
 
-HIP (requires a HIP toolchain, e.g. build with hipcc):
+HIP (requires a HIP toolchain, e.g. build with hipcc). Ensure you configure the
+HIP offload arch (see `-DHIP_ARCH=...` in the build examples):
 
 ```bash
 ./hip_mat_add [steps] [start_dim]
