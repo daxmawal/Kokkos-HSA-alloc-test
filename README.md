@@ -80,4 +80,10 @@ HIP offload arch (see `-DHIP_ARCH=...` in the build examples):
 ./hip_mat_add [steps] [start_dim]
 ```
 
+HIP managed memory:
+
+```bash
+./hip_managed_mat_add [steps] [start_dim]
+```
+
 Defaults: steps=10, start_dim=10000.
