@@ -59,3 +59,22 @@ Example:
 ```bash
 ./kokkos_hsa_alloc_test 10 10 $((64*1024*1024))
 ```
+
+## Matrix add examples
+
+These examples allocate A/B/C matrices and touch every element each step. The
+matrix dimension grows by 20% per iteration.
+
+Kokkos:
+
+```bash
+./kokkos_mat_add [steps] [start_dim]
+```
+
+HIP (requires a HIP toolchain, e.g. build with hipcc):
+
+```bash
+./hip_mat_add [steps] [start_dim]
+```
+
+Defaults: steps=10, start_dim=10000.

@@ -17,6 +17,11 @@ add_subdirectory(kokkos)
 add_executable(kokkos_hsa_alloc_test kokkos_hsa_alloc_test.cpp)
 target_link_libraries(kokkos_hsa_alloc_test PRIVATE Kokkos::kokkos)
 
+add_executable(kokkos_mat_add kokkos_mat_add.cpp)
+target_link_libraries(kokkos_mat_add PRIVATE Kokkos::kokkos)
+
+add_executable(hip_mat_add hip_mat_add.cpp)
+
 option(ENABLE_HSA_TEST "Build HSA-only allocation test" ON)
 if(ENABLE_HSA_TEST)
   set(HSA_ROOT
